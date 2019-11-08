@@ -1,0 +1,9 @@
+{
+    "name": "gitbook-plugin-redirect-from-url",
+    "main": "index.js",
+    "version": "0.0.1",
+    "description": "Add a button in the page, and use the address of the browser to return",
+    "engines": {
+        "gitbook": "*"
+    }
+}
