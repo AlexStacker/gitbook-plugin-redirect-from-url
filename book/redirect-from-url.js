@@ -14,37 +14,31 @@ require(['gitbook'], function(gitbook) {
     return obj;
   }
 
+  var query = locationSearchToObject();
+  var href = query.from;
   gitbook.events.bind('page.change', function() {
-    var query = locationSearchToObject();
-    var href = query.from;
 
     var $redirectBtn = $("<a class='redirect-url-button'>关闭</a>");
     $redirectBtn.css({
       background: '#fff',
       position: 'absolute',
-      padding: '3px',
+      padding: '10px 26px',
       color: '#666',
       'border-radius': '5px',
       border: '1px solid rgb(204, 204, 204)',
       bottom: '3px',
-      left: '26px',
       right: '26px',
       'text-align': 'center',
-      'line-height': '60px',
+      'line-height': '28px',
       'box-shadow': '0px 0px 5px #aaa',
-      'font-size': '24px'
+      'font-size': '16px'
     });
 
-    if (window.cef) {
-      $redirectBtn.click(function() {
-        window.cef.message &&
-          window.cef.message.sendMessage('mirco.call_cplus', [
-            '',
-            'closewindow'
-          ]);
-      });
-      $('.book-body').append($redirectBtn);
-    } else if (query.from) {
+    if(window.cef && document.referrer) {
+      href = document.referrer;
+    }
+
+    if (window.cef && href || href) {
       $redirectBtn.attr('href', decodeURIComponent(href));
       $('.book-body .body-inner').css({
         bottom: '70px'
